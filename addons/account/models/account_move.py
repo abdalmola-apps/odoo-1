@@ -2766,7 +2766,7 @@ class AccountMoveLine(models.Model):
                 tax_ids = self.account_id.tax_ids
             else:
                 tax_ids = self.env['account.tax']
-            if not tax_ids and not self.exclude_from_invoice_tab:
+            if not tax_ids and not self.exclude_from_invoice_tab and not self.product_id:
                 tax_ids = self.move_id.company_id.account_sale_tax_id
         elif self.move_id.is_purchase_document(include_receipts=True):
             # In invoice.
@@ -2776,7 +2776,7 @@ class AccountMoveLine(models.Model):
                 tax_ids = self.account_id.tax_ids
             else:
                 tax_ids = self.env['account.tax']
-            if not tax_ids and not self.exclude_from_invoice_tab:
+            if not tax_ids and not self.exclude_from_invoice_tab and not self.product_id:
                 tax_ids = self.move_id.company_id.account_purchase_tax_id
         else:
             # Miscellaneous operation.
